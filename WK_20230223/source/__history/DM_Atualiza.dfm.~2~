@@ -1,0 +1,307 @@
+object DM_DATASET: TDM_DATASET
+  OldCreateOrder = False
+  Height = 377
+  Width = 591
+  object cds_Pessoa: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Pessoa'
+    Left = 488
+    Top = 56
+    object cds_PessoaIDPESSOA: TLargeintField
+      FieldName = 'IDPESSOA'
+      ReadOnly = True
+    end
+    object cds_PessoaFLNATUREZA: TIntegerField
+      FieldName = 'FLNATUREZA'
+      Required = True
+    end
+    object cds_PessoaDSDOCUMENTO: TStringField
+      FieldName = 'DSDOCUMENTO'
+      Required = True
+    end
+    object cds_PessoaNMPRIMEIRO: TStringField
+      FieldName = 'NMPRIMEIRO'
+      Required = True
+      Size = 100
+    end
+    object cds_PessoaNMSEGUNDO: TStringField
+      FieldName = 'NMSEGUNDO'
+      Required = True
+      Size = 100
+    end
+    object cds_PessoaDTREGISTRO: TWideStringField
+      FieldName = 'DTREGISTRO'
+      Required = True
+      Size = 10
+    end
+  end
+  object DSP_Pessoa: TDataSetProvider
+    DataSet = qry_Pessoa
+    Left = 480
+    Top = 176
+  end
+  object qry_Pessoa: TADOQuery
+    Active = True
+    Connection = MeuTeste
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT [IDPESSOA]'
+      '      ,[FLNATUREZA]'
+      '      ,[DSDOCUMENTO]'
+      '      ,[NMPRIMEIRO]'
+      '      ,[NMSEGUNDO]'
+      '      ,[DTREGISTRO]'
+      '  FROM [PESSOA]')
+    Left = 480
+    Top = 112
+    object qry_PessoaIDPESSOA: TLargeintField
+      FieldName = 'IDPESSOA'
+      ReadOnly = True
+    end
+    object qry_PessoaFLNATUREZA: TIntegerField
+      FieldName = 'FLNATUREZA'
+    end
+    object qry_PessoaDSDOCUMENTO: TStringField
+      FieldName = 'DSDOCUMENTO'
+    end
+    object qry_PessoaNMPRIMEIRO: TStringField
+      FieldName = 'NMPRIMEIRO'
+      Size = 100
+    end
+    object qry_PessoaNMSEGUNDO: TStringField
+      FieldName = 'NMSEGUNDO'
+      Size = 100
+    end
+    object qry_PessoaDTREGISTRO: TWideStringField
+      FieldName = 'DTREGISTRO'
+      Size = 10
+    end
+  end
+  object MeuTeste: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security In' +
+      'fo=False;Initial Catalog=Teste_tecnico;Data Source=DESKTOP-OQM8J' +
+      'LB\SQLEXPRESS'
+    DefaultDatabase = 'Teste_tecnico'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 56
+    Top = 32
+  end
+  object qry_vENDERECO_INTEGRACAO: TADOQuery
+    Connection = MeuTeste
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT ENC.DSCEP'
+      '       ,PES.IDPESSOA'
+      '       ,PES.FLNATUREZA        [NATUREZA]'
+      '       ,PES.DSDOCUMENTO       [DOCUMENTO]'
+      '       ,PES.NMPRIMEIRO        [PRIMEIRO]'
+      '       ,PES.NMSEGUNDO         [SEGUNDO]'
+      '       ,PES.DTREGISTRO        [DATA REGISTRO]'
+      '       ,END_INT.IDENDERECO'
+      '       ,END_INT.DSUF          [UF]'
+      '       ,END_INT.NMCIDADE      [CIDADE]'
+      '       ,END_INT.NMBAIRRO      [BAIRRO]'
+      '       ,END_INT.NMLOGRADOURO  [LOGRADOURO]'
+      '       ,END_INT.DSCOMPLEMENTO [COMPLEMENTO]'
+      '  FROM DBO.endereco ENC'
+      '       INNER JOIN DBO.pessoa PES'
+      '               ON ENC.IDPESSOA = PES.IDPESSOA'
+      '       INNER JOIN DBO.endereco_integracao END_INT'
+      '               ON ENC.IDENDERECO = END_INT.IDENDERECO')
+    Left = 320
+    Top = 120
+  end
+  object qry_Endereco: TADOQuery
+    Connection = MeuTeste
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT [IDENDERECO]'
+      '      ,[IDPESSOA]'
+      '      ,[DSCEP]'
+      '  FROM [Teste_tecnico].[dbo].[ENDERECO]')
+    Left = 192
+    Top = 120
+  end
+  object cds_vENDERECO_INTEGRACAO: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dsp_vENDERECO_INTEGRACAO'
+    AfterScroll = cds_vENDERECO_INTEGRACAOAfterScroll
+    Left = 320
+    Top = 64
+    object cds_vENDERECO_INTEGRACAODSCEP: TStringField
+      FieldName = 'DSCEP'
+      Required = True
+      Visible = False
+      Size = 15
+    end
+    object cds_vENDERECO_INTEGRACAOIDPESSOA: TLargeintField
+      FieldName = 'IDPESSOA'
+      ReadOnly = True
+      Required = True
+      Visible = False
+    end
+    object cds_vENDERECO_INTEGRACAOPRIMEIRO: TStringField
+      DisplayWidth = 20
+      FieldName = 'PRIMEIRO'
+      Required = True
+      Size = 100
+    end
+    object cds_vENDERECO_INTEGRACAOSEGUNDO: TStringField
+      DisplayWidth = 20
+      FieldName = 'SEGUNDO'
+      Required = True
+      Size = 100
+    end
+    object cds_vENDERECO_INTEGRACAONATUREZA: TIntegerField
+      DisplayWidth = 1
+      FieldName = 'NATUREZA'
+      Required = True
+    end
+    object cds_vENDERECO_INTEGRACAODOCUMENTO: TStringField
+      FieldName = 'DOCUMENTO'
+      Required = True
+    end
+    object cds_vENDERECO_INTEGRACAODATAREGISTRO: TWideStringField
+      FieldName = 'DATA REGISTRO'
+      Required = True
+      Size = 10
+    end
+    object cds_vENDERECO_INTEGRACAOIDENDERECO: TLargeintField
+      FieldName = 'IDENDERECO'
+      Required = True
+      Visible = False
+    end
+    object cds_vENDERECO_INTEGRACAOLOGRADOURO: TStringField
+      DisplayWidth = 60
+      FieldName = 'LOGRADOURO'
+      Required = True
+      Size = 100
+    end
+    object cds_vENDERECO_INTEGRACAOCOMPLEMENTO: TStringField
+      DisplayWidth = 30
+      FieldName = 'COMPLEMENTO'
+      Required = True
+      Size = 100
+    end
+    object cds_vENDERECO_INTEGRACAOCIDADE: TStringField
+      DisplayWidth = 60
+      FieldName = 'CIDADE'
+      Required = True
+      Size = 100
+    end
+    object cds_vENDERECO_INTEGRACAOBAIRRO: TStringField
+      DisplayWidth = 40
+      FieldName = 'BAIRRO'
+      Required = True
+      Size = 50
+    end
+    object cds_vENDERECO_INTEGRACAOUF: TStringField
+      DisplayWidth = 2
+      FieldName = 'UF'
+      Required = True
+      Size = 50
+    end
+  end
+  object cds_Endereco: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dsp_Endereco'
+    Left = 200
+    Top = 64
+    object cds_EnderecoIDENDERECO: TLargeintField
+      FieldName = 'IDENDERECO'
+      ReadOnly = True
+    end
+    object cds_EnderecoIDPESSOA: TLargeintField
+      FieldName = 'IDPESSOA'
+    end
+    object cds_EnderecoDSCEP: TStringField
+      FieldName = 'DSCEP'
+      Size = 15
+    end
+  end
+  object dsp_vENDERECO_INTEGRACAO: TDataSetProvider
+    DataSet = qry_vENDERECO_INTEGRACAO
+    Left = 336
+    Top = 184
+  end
+  object dsp_Endereco: TDataSetProvider
+    DataSet = qry_Endereco
+    Left = 200
+    Top = 184
+  end
+  object cds_ENDERECO_INTEGRACAO: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_ENDERECO_INTEGRACAO'
+    Left = 96
+    Top = 80
+    object cds_ENDERECO_INTEGRACAOIDENDERECO: TLargeintField
+      FieldName = 'IDENDERECO'
+    end
+    object cds_ENDERECO_INTEGRACAODSUF: TStringField
+      FieldName = 'DSUF'
+      Size = 50
+    end
+    object cds_ENDERECO_INTEGRACAONMCIDADE: TStringField
+      FieldName = 'NMCIDADE'
+      Size = 100
+    end
+    object cds_ENDERECO_INTEGRACAONMBAIRRO: TStringField
+      FieldName = 'NMBAIRRO'
+      Size = 50
+    end
+    object cds_ENDERECO_INTEGRACAONMLOGRADOURO: TStringField
+      FieldName = 'NMLOGRADOURO'
+      Size = 100
+    end
+    object cds_ENDERECO_INTEGRACAODSCOMPLEMENTO: TStringField
+      FieldName = 'DSCOMPLEMENTO'
+      Size = 100
+    end
+  end
+  object Qry_ENDERECO_INTEGRACAO: TADOQuery
+    Connection = MeuTeste
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'END_INT.IDENDERECO'
+        Attributes = [paSigned]
+        DataType = ftLargeint
+        Precision = 19
+        Size = 8
+        Value = Null
+      end>
+    SQL.Strings = (
+      'SELECT  END_INT.IDENDERECO'
+      '       ,END_INT.DSUF'
+      '       ,END_INT.NMCIDADE'
+      '       ,END_INT.NMBAIRRO'
+      '       ,END_INT.NMLOGRADOURO'
+      '       ,END_INT.DSCOMPLEMENTO'
+      '  FROM DBO.endereco_integracao END_INT'
+      '  WHERE END_INT.IDENDERECO = :END_INT.IDENDERECO')
+    Left = 96
+    Top = 128
+  end
+  object DSP_ENDERECO_INTEGRACAO: TDataSetProvider
+    DataSet = Qry_ENDERECO_INTEGRACAO
+    Left = 88
+    Top = 176
+  end
+  object Qry_Execucao: TADOQuery
+    Connection = MeuTeste
+    Parameters = <>
+    Left = 336
+    Top = 280
+  end
+end

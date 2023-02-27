@@ -1,0 +1,49 @@
+unit DM_Atualiza;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.Win.ADODB, Datasnap.Provider, Data.DB,
+  Datasnap.DBClient;
+
+type
+  TDM_DATASET = class(TDataModule)
+    qry_Pessoa: TADOQuery;
+    MeuTeste: TADOConnection;
+    qry_PessoaIDPESSOA: TLargeintField;
+    qry_PessoaFLNATUREZA: TIntegerField;
+    qry_PessoaDSDOCUMENTO: TStringField;
+    qry_PessoaNMPRIMEIRO: TStringField;
+    qry_PessoaNMSEGUNDO: TStringField;
+    qry_PessoaDTREGISTRO: TWideStringField;
+    qry_Endereco: TADOQuery;
+    cds_Endereco: TClientDataSet;
+    dsp_Endereco: TDataSetProvider;
+    cds_EnderecoIDENDERECO: TLargeintField;
+    cds_EnderecoIDPESSOA: TLargeintField;
+    cds_EnderecoDSCEP: TStringField;
+    cds_ENDERECO_INTEGRACAO: TClientDataSet;
+    Qry_ENDERECO_INTEGRACAO: TADOQuery;
+    DSP_ENDERECO_INTEGRACAO: TDataSetProvider;
+    cds_ENDERECO_INTEGRACAOIDENDERECO: TLargeintField;
+    cds_ENDERECO_INTEGRACAODSUF: TStringField;
+    cds_ENDERECO_INTEGRACAONMCIDADE: TStringField;
+    cds_ENDERECO_INTEGRACAONMBAIRRO: TStringField;
+    cds_ENDERECO_INTEGRACAONMLOGRADOURO: TStringField;
+    cds_ENDERECO_INTEGRACAODSCOMPLEMENTO: TStringField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM_DATASET: TDM_DATASET;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

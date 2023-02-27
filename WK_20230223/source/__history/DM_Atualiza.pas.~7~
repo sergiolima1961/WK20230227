@@ -1,0 +1,82 @@
+unit DM_Atualiza;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.Win.ADODB, Datasnap.Provider, Data.DB,
+  Datasnap.DBClient;
+
+type
+  TDM_DATASET = class(TDataModule)
+    qry_Pessoa: TADOQuery;
+    MeuTeste: TADOConnection;
+    qry_PessoaIDPESSOA: TLargeintField;
+    qry_PessoaFLNATUREZA: TIntegerField;
+    qry_PessoaDSDOCUMENTO: TStringField;
+    qry_PessoaNMPRIMEIRO: TStringField;
+    qry_PessoaNMSEGUNDO: TStringField;
+    qry_PessoaDTREGISTRO: TWideStringField;
+    qry_vENDERECO_INTEGRACAO: TADOQuery;
+    qry_Endereco: TADOQuery;
+    cds_Endereco: TClientDataSet;
+    dsp_Endereco: TDataSetProvider;
+    cds_EnderecoIDENDERECO: TLargeintField;
+    cds_EnderecoIDPESSOA: TLargeintField;
+    cds_EnderecoDSCEP: TStringField;
+    cds_ENDERECO_INTEGRACAO: TClientDataSet;
+    Qry_ENDERECO_INTEGRACAO: TADOQuery;
+    DSP_ENDERECO_INTEGRACAO: TDataSetProvider;
+    cds_ENDERECO_INTEGRACAOIDENDERECO: TLargeintField;
+    cds_ENDERECO_INTEGRACAODSUF: TStringField;
+    cds_ENDERECO_INTEGRACAONMCIDADE: TStringField;
+    cds_ENDERECO_INTEGRACAONMBAIRRO: TStringField;
+    cds_ENDERECO_INTEGRACAONMLOGRADOURO: TStringField;
+    cds_ENDERECO_INTEGRACAODSCOMPLEMENTO: TStringField;
+    Qry_Execucao: TADOQuery;
+    qry_vENDERECO_INTEGRACAODSCEP: TStringField;
+    qry_vENDERECO_INTEGRACAOIDPESSOA: TLargeintField;
+    qry_vENDERECO_INTEGRACAONATUREZA: TIntegerField;
+    qry_vENDERECO_INTEGRACAODOCUMENTO: TStringField;
+    qry_vENDERECO_INTEGRACAOPRIMEIRO: TStringField;
+    qry_vENDERECO_INTEGRACAOSEGUNDO: TStringField;
+    qry_vENDERECO_INTEGRACAODATAREGISTRO: TWideStringField;
+    qry_vENDERECO_INTEGRACAOIDENDERECO: TLargeintField;
+    qry_vENDERECO_INTEGRACAOUF: TStringField;
+    qry_vENDERECO_INTEGRACAOCIDADE: TStringField;
+    qry_vENDERECO_INTEGRACAOBAIRRO: TStringField;
+    qry_vENDERECO_INTEGRACAOLOGRADOURO: TStringField;
+    qry_vENDERECO_INTEGRACAOCOMPLEMENTO: TStringField;
+    procedure cds_vENDERECO_INTEGRACAOAfterScroll(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM_DATASET: TDM_DATASET;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDM_DATASET.cds_vENDERECO_INTEGRACAOAfterScroll(DataSet: TDataSet);
+begin
+  //
+  qry_Pessoa.Close;
+  qry_Pessoa.Parameters.ParamByName('IDPESSOA').Value := QRY_vENDERECO_INTEGRACAOIDPESSOA.Value;
+  qry_Pessoa.open;
+  //
+  cds_Endereco.Close;
+  qry_Endereco.Parameters.ParamByName('IDENDERECO').Value := QRY_vENDERECO_INTEGRACAOIDENDERECO.Value;
+  qry_Endereco.Parameters.ParamByName('IDPESSOA').Value := QRY_vENDERECO_INTEGRACAOIDPESSOA.Value;
+  cds_Endereco.open;
+  //
+  Qry_ENDERECO_INTEGRACAO.Close;
+  Qry_ENDERECO_INTEGRACAO.Parameters.ParamByName('IDENDERECO').Value := QRY_vENDERECO_INTEGRACAOIDENDERECO.Value;
+  Qry_ENDERECO_INTEGRACAO.open;
+end;
+
+end.

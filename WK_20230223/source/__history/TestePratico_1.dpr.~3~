@@ -1,0 +1,22 @@
+program WK;
+
+uses
+  Vcl.Forms,
+  Main in 'Main.pas' {fMain},
+  InscricaoFiscal in 'InscricaoFiscal.pas',
+  Ulogin in 'Ulogin.pas' {FLogin},
+  CadCliente in 'CadCliente.pas' {fCadCliente},
+  DM_Atualiza in 'DM_Atualiza.pas' {DM_DATASET: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFLogin, FLogin);
+  Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TDM_DATASET, DM_DATASET);
+  Application.CreateForm(TDM_DATASET, DM_DATASET);
+  Application.CreateForm(TDM_DATASET, DM_DATASET);
+  Application.Run;
+end.

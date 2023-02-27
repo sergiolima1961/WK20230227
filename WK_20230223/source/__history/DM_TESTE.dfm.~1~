@@ -1,0 +1,42 @@
+object DM_DATASET: TDM_DATASET
+  OldCreateOrder = False
+  Height = 377
+  Width = 550
+  object ADO_Local: TADOConnection
+    Left = 64
+    Top = 64
+  end
+  object Ado_Nuvens: TADOConnection
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Persist Security Info=False;User ID=admdba;I' +
+      'nitial Catalog=db_Treinamento_Slima;Data Source=srvdbatreinament' +
+      'ozero.database.windows.net'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 56
+    Top = 136
+  end
+  object cds_Pessoa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 424
+    Top = 80
+  end
+  object DSP_Pessoa: TDataSetProvider
+    Left = 408
+    Top = 224
+  end
+  object qry_Pessoa: TADOQuery
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT [IDPESSOA]'
+      '      ,[FLNATUREZA]'
+      '      ,[DSDOCUMENTO]'
+      '      ,[NMPRIMEIRO]'
+      '      ,[NMSEGUNDO]'
+      '      ,[DTREGISTRO]'
+      '  FROM [Teste_tecnico].[dbo].[PESSOA]')
+    Left = 416
+    Top = 152
+  end
+end
